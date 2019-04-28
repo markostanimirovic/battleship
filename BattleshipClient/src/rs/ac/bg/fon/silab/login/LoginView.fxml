@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="210.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.ac.bg.fon.silab.login.LoginController">
+   <children>
+      <Label layoutX="20.0" layoutY="10.0" text="Korisničko ime:" />
+      <TextField fx:id="username" layoutX="20.0" layoutY="40.0" prefHeight="31.0" prefWidth="220.0" />
+      <Label layoutX="20.0" layoutY="80.0" text="Šifra:" />
+      <PasswordField fx:id="password" layoutX="20.0" layoutY="110.0" prefHeight="31.0" prefWidth="220.0" />
+      <Button layoutX="176.0" layoutY="159.0" mnemonicParsing="false" onAction="#handleLogin" text="Prijava" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,21 @@
+.ship-button {
+    -fx-background-image: url("ship.jpg");
+    -fx-background-size: 40 40;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.success-button {
+    -fx-background-color: green;
+}
+
+.failed-button {
+    -fx-background-color: red;
+}
+
+.loading {
+    -fx-background-image: url("loading.gif");
+    -fx-background-size: 250 250;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
