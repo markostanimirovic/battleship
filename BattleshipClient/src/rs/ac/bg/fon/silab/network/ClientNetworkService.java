@@ -12,7 +12,7 @@ import java.net.Socket;
 import rs.ac.bg.fon.silab.dto.ClientDto;
 import rs.ac.bg.fon.silab.dto.ServerDto;
 
-import static rs.ac.bg.fon.silab.constant.NetworkConstant.*;
+import static rs.ac.bg.fon.silab.constant.Network.*;
 
 /**
  *
@@ -52,14 +52,8 @@ public class ClientNetworkService {
         }
     }
 
-    public ServerDto receiveResponse() {
-        try {
-            return (ServerDto) in.readObject();
-        } catch (IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
+    public ServerDto receiveResponse() throws IOException, ClassNotFoundException {
+        return (ServerDto) in.readObject();
     }
 
 }

@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="570.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.ac.bg.fon.silab.battleship.BattleshipController">
+<AnchorPane id="AnchorPane" maxHeight="570.0" maxWidth="900.0" minHeight="570.0" minWidth="900.0" prefHeight="570.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rs.ac.bg.fon.silab.battleship.BattleshipController">
     <children>
         <GridPane layoutX="20.0" layoutY="40.0" prefHeight="400.0" prefWidth="400.0">
             <columnConstraints>

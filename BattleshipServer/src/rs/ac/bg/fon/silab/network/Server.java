@@ -11,7 +11,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import static rs.ac.bg.fon.silab.constant.NetworkConstant.*;
+import static rs.ac.bg.fon.silab.constant.Network.*;
 
 /**
  *
@@ -43,6 +43,21 @@ public class Server {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void stop() {
+        if (serverSocket != null) {
+            try {
+                serverSocket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public void restart() {
+        stop();
+        start();
     }
 
     private void listen() {

@@ -19,9 +19,7 @@ public class BattleshipClientApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         ViewManager.getInstance().showLoginView();
-
-        ClientNetworkListener networkListener = new ClientNetworkListener();
-        networkListener.start();
+        ClientNetworkListener.getInstance().start();
     }
 
     /**

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rs.ac.bg.fon.silab.core;
+package rs.ac.bg.fon.silab.shared;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -81,7 +81,7 @@ public class User implements BaseEntity {
     }
 
     @Override
-    public String getValuesForInsert() {
+    public String getInsertValues() {
         return userId + ", '" + username + "', '" + password + "'";
     }
 
@@ -90,15 +90,8 @@ public class User implements BaseEntity {
         try {
             User user = null;
             if (rs.next()) {
-                int korisnikID1 = rs.getInt("korisnikID");
-                String ime1 = rs.getString("ime");
-                String prezime1 = rs.getString("prezime");
-                String korisnickoIme1 = rs.getString("korisnickoIme");
-                String sifra = rs.getString("korisnickaSifra");
                 user = new User(rs.getInt("userId"), rs.getString("username"), rs.getString("password"));
-
             }
-            rs.close();
 
             return user;
         } catch (SQLException ex) {

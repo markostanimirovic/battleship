@@ -6,12 +6,14 @@
 package rs.ac.bg.fon.silab.network;
 
 import java.net.Socket;
-import java.util.List;
+import java.net.SocketException;
 import rs.ac.bg.fon.silab.constant.Operation;
 import rs.ac.bg.fon.silab.dto.ClientDto;
 import rs.ac.bg.fon.silab.dto.ServerDto;
 
 import rs.ac.bg.fon.silab.constant.Status;
+import rs.ac.bg.fon.silab.controller.ServerController;
+import rs.ac.bg.fon.silab.entity.Match;
 import rs.ac.bg.fon.silab.entity.Polygon;
 import rs.ac.bg.fon.silab.entity.PolygonField;
 import rs.ac.bg.fon.silab.entity.User;
@@ -56,34 +58,32 @@ public class ServerNetworkListener extends Thread {
     @Override
     public void run() {
         while (true) {
-            ClientDto clientDto = networkService.receiveResponse();
-            ServerDto serverDto = new ServerDto();
             try {
+                ClientDto clientDto = networkService.receiveResponse();
                 switch (clientDto.getOperation()) {
                     case Operation.LOGIN:
-                        user = (User) clientDto.getPayload();
-
-                        serverDto.setStatus(Status.SUCCESS);
-                        serverDto.setOperation(Operation.LOGIN_SUCCESSFUL);
-                        serverDto.setPayload(user.getUsername());
-                        networkService.sendRequest(serverDto);
+                        User userFromRequest = (User) clientDto.getPayload();
+                        user = ServerController.getInstance().getUser(userFromRequest);
+                        if (user != null) {
+                            networkService.sendRequest(new ServerDto(Status.SUCCESS, Operation.LOGIN_SUCCESSFUL, user.getUsername()));
+                        } else {
+                            networkService.sendRequest(new ServerDto(Status.SUCCESS, Operation.LOGIN_UNSUCCESSFUL));
+                            break;
+                        }
 
                         if (enemyListener != null && enemyListener.getUser() != null) {
-                            networkService.sendRequest(new ServerDto(Operation.ENEMY_USERNAME, Status.SUCCESS, enemyListener.getUser().getUsername()));
-                            enemyListener.getNetworkService().sendRequest(new ServerDto(Operation.ENEMY_USERNAME, Status.SUCCESS, user.getUsername()));
+                            networkService.sendRequest(new ServerDto(Status.SUCCESS, Operation.ENEMY_USERNAME, enemyListener.getUser().getUsername()));
+                            enemyListener.getNetworkService().sendRequest(new ServerDto(Status.SUCCESS, Operation.ENEMY_USERNAME, user.getUsername()));
                         }
 
                         break;
                     case Operation.SUBMIT_POLYGON:
                         polygon = (Polygon) clientDto.getPayload();
-
-                        serverDto.setStatus(Status.SUCCESS);
-                        serverDto.setOperation(Operation.SUBMIT_POLYGON_SUCCESSFUL);
-                        networkService.sendRequest(serverDto);
+                        networkService.sendRequest(new ServerDto(Status.SUCCESS, Operation.SUBMIT_POLYGON_SUCCESSFUL));
 
                         if (enemyListener != null && enemyListener.getPolygon() != null) {
-                            networkService.sendRequest(new ServerDto(Operation.ENEMY_HIT_FIRST, Status.SUCCESS));
-                            enemyListener.getNetworkService().sendRequest(new ServerDto(Operation.YOU_HIT_FIRST, Status.SUCCESS));
+                            networkService.sendRequest(new ServerDto(Status.SUCCESS, Operation.ENEMY_HIT_FIRST));
+                            enemyListener.getNetworkService().sendRequest(new ServerDto(Status.SUCCESS, Operation.YOU_HIT_FIRST));
                         }
 
                         break;
@@ -95,35 +95,35 @@ public class ServerNetworkListener extends Thread {
                         enemyField.setChecked(true);
 
                         if (enemyField.isChoosed()) {
-                            serverDto.setStatus(Status.SUCCESS);
-                            serverDto.setOperation(Operation.YOU_SUCCESSFUL_HIT);
-                            serverDto.setPayload(enemyField);
-
-                            networkService.sendRequest(serverDto);
-                            enemyListener.getNetworkService().sendRequest(new ServerDto(Operation.ENEMY_SUCCESSFUL_HIT, Status.SUCCESS, enemyField));
+                            networkService.sendRequest(new ServerDto(Status.SUCCESS, Operation.YOU_SUCCESSFUL_HIT, enemyField));
+                            enemyListener.getNetworkService().sendRequest(new ServerDto(Status.SUCCESS, Operation.ENEMY_SUCCESSFUL_HIT, enemyField));
                         } else {
-                            serverDto.setStatus(Status.SUCCESS);
-                            serverDto.setOperation(Operation.YOU_FAILED_HIT);
-                            serverDto.setPayload(enemyField);
-
-                            networkService.sendRequest(serverDto);
-                            enemyListener.getNetworkService().sendRequest(new ServerDto(Operation.ENEMY_FAILED_HIT, Status.SUCCESS, enemyField));
+                            networkService.sendRequest(new ServerDto(Status.SUCCESS, Operation.YOU_FAILED_HIT, enemyField));
+                            enemyListener.getNetworkService().sendRequest(new ServerDto(Status.SUCCESS, Operation.ENEMY_FAILED_HIT, enemyField));
                         }
 
                         if (enemyListener.getPolygon().getPolygonFields().stream().filter(field -> field.isChecked() && field.isChoosed()).count() == 20) {
-                            networkService.sendRequest(new ServerDto(Operation.YOU_WIN, Status.SUCCESS));
-                            enemyListener.getNetworkService().sendRequest(new ServerDto(Operation.ENEMY_WIN, Status.SUCCESS));
+                            networkService.sendRequest(new ServerDto(Status.SUCCESS, Operation.YOU_WIN));
+                            enemyListener.getNetworkService().sendRequest(new ServerDto(Status.SUCCESS, Operation.ENEMY_WIN));
+                            ServerController.getInstance().saveMatch(new Match(getUser(), enemyListener.getUser()));
                         }
 
                         break;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                serverDto.setStatus(Status.ERROR);
-                serverDto.setException(e);
-                networkService.sendRequest(serverDto);
-            }
+                if (e instanceof SocketException) {
+                    if (enemyListener != null) {
+                        enemyListener.getNetworkService().sendRequest(new ServerDto(Status.SUCCESS, Operation.ENEMY_DISCONNECTED));
+                    }
 
+                    e.printStackTrace();
+                    Server.getInstance().restart();
+                    break;
+                }
+
+                networkService.sendRequest(new ServerDto(Status.ERROR, e));
+            }
         }
     }
+
 }

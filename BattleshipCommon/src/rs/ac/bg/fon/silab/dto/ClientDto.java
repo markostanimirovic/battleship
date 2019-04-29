@@ -13,22 +13,14 @@ import java.io.Serializable;
  */
 public class ClientDto implements Serializable {
 
-    private Object payload;
     private int operation;
+    private Object payload;
 
     public ClientDto() {
     }
 
-    public ClientDto(Object payload, int operation) {
-        this.payload = payload;
+    public ClientDto(int operation, Object payload) {
         this.operation = operation;
-    }
-
-    public Object getPayload() {
-        return payload;
-    }
-
-    public void setPayload(Object payload) {
         this.payload = payload;
     }
 
@@ -38,6 +30,14 @@ public class ClientDto implements Serializable {
 
     public void setOperation(int operation) {
         this.operation = operation;
+    }
+
+    public Object getPayload() {
+        return payload;
+    }
+
+    public void setPayload(Object payload) {
+        this.payload = payload;
     }
 
 }

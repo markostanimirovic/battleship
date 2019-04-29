@@ -17,7 +17,7 @@ import rs.ac.bg.fon.silab.dto.ServerDto;
  * @author marko
  */
 public class ServerNetworkService {
-    
+
     private Socket socket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
@@ -40,13 +40,8 @@ public class ServerNetworkService {
         }
     }
 
-    public ClientDto receiveResponse() {
-        try {
-            return (ClientDto) in.readObject();
-        } catch (IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
+    public ClientDto receiveResponse() throws IOException, ClassNotFoundException {
+        return (ClientDto) in.readObject();
     }
+
 }

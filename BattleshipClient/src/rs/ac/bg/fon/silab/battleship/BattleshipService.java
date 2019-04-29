@@ -127,7 +127,7 @@ public class BattleshipService {
             disableActionButtons();
             currentState = BattleshipState.COMPLETED;
             updateCurrentMoveInfo();
-            ClientNetworkService.getInstance().sendRequest(new ClientDto(battleshipMapper.toPolygon(xPolygon), Operation.SUBMIT_POLYGON));
+            ClientNetworkService.getInstance().sendRequest(new ClientDto(Operation.SUBMIT_POLYGON, battleshipMapper.toPolygon(xPolygon)));
         }
     }
 
@@ -139,7 +139,7 @@ public class BattleshipService {
         String ij = button.getId().substring(1);
         int i = Integer.parseInt(ij.substring(0, 1));
         int j = Integer.parseInt(ij.substring(1));
-        ClientNetworkService.getInstance().sendRequest(new ClientDto(battleshipMapper.toPolygonField(i, j), Operation.HIT));
+        ClientNetworkService.getInstance().sendRequest(new ClientDto(Operation.HIT, battleshipMapper.toPolygonField(i, j)));
     }
 
     private void populatePolygons() {

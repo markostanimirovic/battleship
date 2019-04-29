@@ -34,7 +34,7 @@ public class LoginService {
             if (username.isEmpty() || password.isEmpty()) {
                 ViewManager.getInstance().showAlert("Korisničko ime i lozinka su obavezna polja", "Greška", Alert.AlertType.ERROR);
             } else {
-                ClientNetworkService.getInstance().sendRequest(new ClientDto(loginMapper.toUser(username, password), Operation.LOGIN));
+                ClientNetworkService.getInstance().sendRequest(new ClientDto(Operation.LOGIN, loginMapper.toUser(username, password)));
             }
         } catch (Exception ex) {
             ex.printStackTrace();

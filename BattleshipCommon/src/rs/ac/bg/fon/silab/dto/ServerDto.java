@@ -13,44 +13,44 @@ import java.io.Serializable;
  */
 public class ServerDto implements Serializable {
 
-    private Integer operation;
-    private Integer status;
+    private int status;
+    private int operation;
     private Object payload;
     private Exception exception;
 
     public ServerDto() {
     }
 
-    public ServerDto(Integer operation, Integer status) {
-        this.operation = operation;
+    public ServerDto(int status, int operation) {
         this.status = status;
+        this.operation = operation;
     }
 
-    public ServerDto(Integer operation, Integer status, Object payload) {
-        this.operation = operation;
+    public ServerDto(int status, int operation, Object payload) {
         this.status = status;
+        this.operation = operation;
         this.payload = payload;
     }
 
-    public ServerDto(Integer status, Exception exception) {
+    public ServerDto(int status, Exception exception) {
         this.status = status;
         this.exception = exception;
     }
 
-    public Integer getOperation() {
-        return operation;
-    }
-
-    public void setOperation(Integer operation) {
-        this.operation = operation;
-    }
-
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getOperation() {
+        return operation;
+    }
+
+    public void setOperation(int operation) {
+        this.operation = operation;
     }
 
     public Object getPayload() {

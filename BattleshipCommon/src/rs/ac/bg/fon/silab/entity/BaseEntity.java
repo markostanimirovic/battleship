@@ -19,7 +19,7 @@ public interface BaseEntity extends Serializable {
 
     List<BaseEntity> populate(ResultSet rs) throws Exception;
 
-    String getValuesForInsert();
+    String getInsertValues();
 
     BaseEntity convert(ResultSet rs) throws Exception;
 

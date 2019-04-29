@@ -5,7 +5,7 @@
  */
 package rs.ac.bg.fon.silab.battleship;
 
-import rs.ac.bg.fon.silab.core.BehaviourSubject;
+import rs.ac.bg.fon.silab.shared.BehaviourSubject;
 
 /**
  *

@@ -30,4 +30,6 @@ public class Operation {
     public static final int YOU_WIN = 14;
     public static final int ENEMY_WIN = 15;
 
+    public static final int ENEMY_DISCONNECTED = 16;
+
 }

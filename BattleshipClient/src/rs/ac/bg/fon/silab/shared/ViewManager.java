@@ -5,11 +5,13 @@
  */
 package rs.ac.bg.fon.silab.shared;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import rs.ac.bg.fon.silab.BattleshipClientApplication;
 
 /**
@@ -25,6 +27,8 @@ public class ViewManager {
 
     private ViewManager() {
         stage = new Stage();
+        stage.setResizable(false);
+        setOnCloseListener();
     }
 
     public Scene getCurrentScene() {
@@ -80,6 +84,13 @@ public class ViewManager {
         errorAlert.setHeaderText(null);
         errorAlert.setContentText(message);
         errorAlert.showAndWait();
+    }
+
+    private void setOnCloseListener() {
+        stage.setOnCloseRequest((WindowEvent event) -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
 }
