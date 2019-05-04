@@ -4,14 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/workspace/battleship/BattleshipServer/src/rs/ac/bg/fon/silab/network/Server.java</file>
-            <file>file:/C:/workspace/battleship/BattleshipServer/src/rs/ac/bg/fon/silab/database/DBBroker.java</file>
-            <file>file:/C:/workspace/battleship/BattleshipServer/src/rs/ac/bg/fon/silab/so/match/SaveMatchSO.java</file>
-            <file>file:/C:/workspace/battleship/BattleshipServer/src/rs/ac/bg/fon/silab/constant/Database.java</file>
-            <file>file:/C:/workspace/battleship/BattleshipServer/src/rs/ac/bg/fon/silab/network/ServerNetworkService.java</file>
-            <file>file:/C:/workspace/battleship/BattleshipServer/src/rs/ac/bg/fon/silab/so/BaseSO.java</file>
-            <file>file:/C:/workspace/battleship/BattleshipServer/src/rs/ac/bg/fon/silab/so/user/GetUserSO.java</file>
             <file>file:/C:/workspace/battleship/BattleshipServer/src/rs/ac/bg/fon/silab/network/ServerNetworkListener.java</file>
-            <file>file:/C:/workspace/battleship/BattleshipServer/src/rs/ac/bg/fon/silab/BattleshipServerApplication.java</file>
             <file>file:/C:/workspace/battleship/BattleshipServer/src/rs/ac/bg/fon/silab/controller/ServerController.java</file>
         </group>
     </open-files>

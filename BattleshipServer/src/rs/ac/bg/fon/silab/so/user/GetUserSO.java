@@ -14,17 +14,17 @@ import rs.ac.bg.fon.silab.so.BaseSO;
  *
  * @author marko
  */
-public class GetUserSO extends BaseSO {
+public class GetUserSO extends BaseSO<User> {
 
-    private BaseEntity user;
+    private User user;
 
-    public BaseEntity getUser() {
+    public User getUser() {
         return user;
     }
 
     @Override
-    protected void executeOperation(Object o) throws Exception {
-        user = DBBroker.getInstance().get((User) o);
+    protected void executeOperation(User user) throws Exception {
+        this.user = (User) DBBroker.getInstance().get(user);
     }
 
 }

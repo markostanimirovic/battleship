@@ -6,18 +6,19 @@
 package rs.ac.bg.fon.silab.so;
 
 import rs.ac.bg.fon.silab.database.DBBroker;
+import rs.ac.bg.fon.silab.entity.BaseEntity;
 
 /**
  *
  * @author marko
  */
-public abstract class BaseSO {
+public abstract class BaseSO<T extends BaseEntity> {
 
-    public synchronized void execute(Object o) throws Exception {
+    public synchronized void execute(T entity) throws Exception {
         try {
             loadDriver();
             openConnection();
-            executeOperation(o);
+            executeOperation(entity);
             commit();
         } catch (Exception ex) {
             rollback();
@@ -36,7 +37,7 @@ public abstract class BaseSO {
         DBBroker.getInstance().openConnection();
     }
 
-    protected abstract void executeOperation(Object o) throws Exception;
+    protected abstract void executeOperation(T entity) throws Exception;
 
     private void commit() throws Exception {
         DBBroker.getInstance().commit();

@@ -33,7 +33,7 @@ public class ServerController {
         GetUserSO getUserSO = new GetUserSO();
         getUserSO.execute(user);
 
-        return (User) getUserSO.getUser();
+        return getUserSO.getUser();
     }
 
     public void saveMatch(Match match) throws Exception {

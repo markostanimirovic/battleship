@@ -27,7 +27,6 @@ public class ViewManager {
 
     private ViewManager() {
         stage = new Stage();
-        stage.setResizable(false);
         setOnCloseListener();
     }
 

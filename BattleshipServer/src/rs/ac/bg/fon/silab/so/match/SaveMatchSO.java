@@ -13,11 +13,10 @@ import rs.ac.bg.fon.silab.so.BaseSO;
  *
  * @author marko
  */
-public class SaveMatchSO extends BaseSO {
+public class SaveMatchSO extends BaseSO<Match> {
 
     @Override
-    protected void executeOperation(Object o) throws Exception {
-        Match match = (Match) o;
+    protected void executeOperation(Match match) throws Exception {
         match.setMatchId(DBBroker.getInstance().getMaxIdentifierValue(match) + 1);
         DBBroker.getInstance().save(match);
     }
